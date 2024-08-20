@@ -1,0 +1,23 @@
+[package]
+#name = "tauri-app"
+# CLI：Command-Line Interface
+name = "rust-cli-panel"
+version = "0.1.0"
+description = "A Command-Line Interface App, easy to create frontend App"
+authors = ["malred"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[build-dependencies]
+tauri-build = { version = "1", features = [] }
+
+[dependencies]
+tauri = { version = "1", features = ["shell-open"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1.39.3", features = ["full"] }
+
+[features]
+# This feature is used for production builds or when a dev server is not specified, DO NOT REMOVE!!
+custom-protocol = ["tauri/custom-protocol"]
