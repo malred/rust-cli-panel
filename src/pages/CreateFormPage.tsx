@@ -8,7 +8,7 @@ const CreateFormPage = () => {
     const params = useParams();
     console.log(params)
 // @ts-ignore
-    let [searchParams, setSearchParams] = useSearchParams();
+    let [searchParams, _] = useSearchParams();
     console.log(searchParams)
 
     // 项目名称
@@ -132,6 +132,7 @@ const CreateFormPage = () => {
                     </div>
 
                     <button
+                        disabled={creating}
                         onClick={async () => {
                             await submit()
                         }}
