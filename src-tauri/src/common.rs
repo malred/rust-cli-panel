@@ -1,8 +1,10 @@
-use std::{fs, io, process};
+use std::{fs, io, process, thread};
 use std::env::current_exe;
 use std::io::Read;
 use std::path::Path;
 use std::process::Command;
+use std::sync::Arc;
+use std::thread::spawn;
 use tauri::async_runtime::block_on;
 
 // 复制文件夹到指定路径
@@ -28,7 +30,8 @@ pub fn copy_dir_all(src: impl AsRef<Path>, dst: impl AsRef<Path>) -> io::Result<
 
 
 // 执行npm install操作
-pub async fn install(project_name: &str, npm_type: &str) {
+// pub async fn install(project_name: &str, npm_type: &str) {
+pub fn install(project_name: &str, npm_type: &str) {
     if npm_type.is_empty() {
         return;
     }
@@ -81,7 +84,8 @@ pub fn cmd(cmd_shell: &str) -> Option<String> {
 }
 
 // 执行git init操作
-pub async fn git_init(project_name: &str) {
+// pub async fn git_init(project_name: &str) {
+pub fn git_init(project_name: &str) {
     println!("{}", ("start git init ..."));
 
     if cfg!(target_os = "windows") {
@@ -116,19 +120,29 @@ pub fn npm_and_git(
     npm_type: String, git: String,
     project_dir: String,
 ) {
+    let project_dir = Arc::new(project_dir);
     // if !npm_type.is_empty() { install(&user_select.project_name, &npm_type); };
     if !npm_type.is_empty() {
-        block_on(
-            install(
-                &project_dir, &npm_type,
-            ),
-        );
+        // block_on(
+        //     install(
+        //         &project_dir, &npm_type,
+        //     ),
+        // );
+        // clone current data index, to move it into thread
+        let cur = Arc::clone(&project_dir);
+        spawn(move || {
+            install(&cur, &npm_type);
+        }).join().unwrap();
     };
 
     if !git.is_empty() {
-        block_on(
-            git_init(&project_dir)
-        );
+        // block_on(
+        //     git_init(&project_dir)
+        // );
+        let cur = Arc::clone(&project_dir);
+        spawn(move || {
+            git_init(&cur);
+        }).join().unwrap();
     }
 }
 
