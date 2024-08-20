@@ -2,7 +2,7 @@
 #name = "tauri-app"
 # CLI：Command-Line Interface
 name = "rust-cli-panel"
-version = "0.1.0"
+version = "0.2.0"
 description = "A Command-Line Interface App, easy to create frontend App"
 authors = ["malred"]
 edition = "2021"
