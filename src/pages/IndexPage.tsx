@@ -1,16 +1,14 @@
 // @ts-ignore
 import React, {useEffect, useState} from 'react';
-import {invoke} from "@tauri-apps/api/tauri";
 import {createTypes} from "../constants/createTypes.ts";
 import {Link} from "react-router-dom";
+import {invoke} from "@tauri-apps/api/tauri";
 
 const IndexPage = () => {
-    // @ts-ignore 创建什么项目
-    const [createType, setCreateType] = useState("");
     // 创建在哪个目录
     const [dir, setDir] = useState("");
 
-    // 获取当前目录路径
+    // // 获取当前目录路径
     async function chdir() {
         setDir(await invoke("chdir"))
     }
@@ -29,6 +27,7 @@ const IndexPage = () => {
                        onChange={(event) => setDir(event.target.value)}
                        type="text" value={dir}/>
             </div>
+
             <h2>项目类型</h2>
             <div className={'type-card-container'}>
                 {createTypes.map(item => (

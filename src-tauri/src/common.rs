@@ -3,6 +3,7 @@ use std::env::current_exe;
 use std::io::Read;
 use std::path::Path;
 use std::process::Command;
+use tauri::async_runtime::block_on;
 
 // 复制文件夹到指定路径
 pub fn copy_dir_all(src: impl AsRef<Path>, dst: impl AsRef<Path>) -> io::Result<()> {
@@ -110,6 +111,27 @@ pub async fn git_init(project_name: &str) {
         println!("")
     }
 }
+
+pub fn npm_and_git(
+    npm_type: String, git: String,
+    project_dir: String,
+) {
+    // if !npm_type.is_empty() { install(&user_select.project_name, &npm_type); };
+    if !npm_type.is_empty() {
+        block_on(
+            install(
+                &project_dir, &npm_type,
+            ),
+        );
+    };
+
+    if !git.is_empty() {
+        block_on(
+            git_init(&project_dir)
+        );
+    }
+}
+
 
 pub fn current_exe_pkg() -> String {
     let pkg_name = env!("CARGO_PKG_NAME");

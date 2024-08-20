@@ -1,13 +1,11 @@
 // @ts-ignore
 import {useNavigate, useParams, useRoutes, useSearchParams} from "react-router-dom";
 import CreateViteForm from "../components/CreateViteForm.tsx";
+import CreateNextForm from "../components/CreateNextForm.tsx";
 
 const CreateFormPage = () => {
     const params = useParams();
-    // console.log(params)
-// @ts-ignore
-    let [searchParams, _] = useSearchParams();
-    // console.log(searchParams)
+    const [searchParams, _] = useSearchParams();
     const navigate = useNavigate();
 
     return (
@@ -19,6 +17,12 @@ const CreateFormPage = () => {
             </div>
             {params.type === 'vite' &&
                 <CreateViteForm
+                    type={params.type}
+                    dir={searchParams.get('dir') || ''}
+                />
+            }
+            {params.type === 'next' &&
+                <CreateNextForm
                     type={params.type}
                     dir={searchParams.get('dir') || ''}
                 />

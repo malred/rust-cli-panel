@@ -164,22 +164,7 @@
             border-radius: 6px;
         }
 
-        .framework-image-container {
-            .active {
-                background: gainsboro;
-            }
-
-            img {
-                border-radius: 8px;
-                margin-right: 2px;
-                cursor: pointer;
-                padding: .3rem;
-                width: 3rem;
-                height: 3rem;
-            }
-        }
-
-        .variant-image-container {
+        .create-image-container {
             .active {
                 background: gainsboro;
             }

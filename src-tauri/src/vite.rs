@@ -2,7 +2,7 @@ use std::error::Error;
 use std::path::Path;
 use serde::{Deserialize, Serialize};
 use tauri::async_runtime::block_on;
-use crate::common::{copy_dir_all, current_exe_pkg, git_init, install};
+use crate::common::{copy_dir_all, current_exe_pkg, git_init, install, npm_and_git};
 
 #[derive(Debug, Deserialize, Serialize)]
 pub enum FrameworkType {
@@ -137,18 +137,8 @@ pub fn create_vite_project(
 
     user_select.init();
 
-    // if !npm_type.is_empty() { install(&user_select.project_name, &npm_type); };
-    if !npm_type.is_empty() {
-        block_on(
-            install(
-                &(user_select.dir.clone() + "/" + &user_select.project_name.clone()), &npm_type,
-            ),
-        );
-    };
-
-    if !git.is_empty() {
-        block_on(
-            git_init(&(user_select.dir.clone() + "/" + &user_select.project_name.clone()))
-        );
-    }
+    npm_and_git(
+        npm_type, git,
+        (user_select.dir.clone() + "/" + &user_select.project_name.clone()),
+    );
 }
