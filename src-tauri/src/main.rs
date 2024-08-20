@@ -43,6 +43,7 @@ fn chdir() -> String {
     cmd("chdir").unwrap()
 }
 
+// todo: 自动安装太慢, 加个.npmrc换registry
 fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
