@@ -80,7 +80,7 @@ pub fn cmd(cmd_shell: &str) -> Option<String> {
 }
 
 // 执行git init操作
-pub fn git_init(project_name: &str) {
+pub async fn git_init(project_name: &str) {
     println!("{}", ("start git init ..."));
 
     if cfg!(target_os = "windows") {

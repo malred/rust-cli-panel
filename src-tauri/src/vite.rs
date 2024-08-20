@@ -139,14 +139,16 @@ pub fn create_vite_project(
 
     // if !npm_type.is_empty() { install(&user_select.project_name, &npm_type); };
     if !npm_type.is_empty() {
-        // 异步是单线程
         block_on(
             install(
                 &(user_select.dir.clone() + "/" + &user_select.project_name.clone()), &npm_type,
-            )
+            ),
         );
     };
+
     if !git.is_empty() {
-        git_init(&(user_select.dir.clone() + "/" + &user_select.project_name.clone()));
+        block_on(
+            git_init(&(user_select.dir.clone() + "/" + &user_select.project_name.clone()))
+        );
     }
 }
