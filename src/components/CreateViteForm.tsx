@@ -19,6 +19,7 @@ const CreateViteForm = (props: Props) => {
     const [framework_type, setFramework_type] = useState('react')
     // 是否使用ts
     const [variant_type, setVariant_type] = useState('ts')
+
     // 使用什么包管理工具
     const [npmType, setNpmType] = useState('pnpm')
     // 是否初始化git

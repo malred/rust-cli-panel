@@ -24,9 +24,9 @@ const CreateNextForm = (props: Props) => {
     // 是否使用src目录
     const [useSrc, setUseSrc] = useState('no')
     // 是否使用app目录
-    const [useApp, setAlias] = useState('yes')
+    const [useApp, setUseApp] = useState('yes')
     // 是否使用alias别名
-    const [alias, setUseApp] = useState('no')
+    const [alias, setAlias] = useState('no')
 
     // 使用什么包管理工具
     const [npmType, setNpmType] = useState('pnpm')
